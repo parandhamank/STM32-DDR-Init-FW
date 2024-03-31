@@ -1,0 +1,2 @@
+# STM32-DDR-Init-FW
+STM32MP1 DDR Init code
