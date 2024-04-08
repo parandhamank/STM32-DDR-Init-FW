@@ -2170,6 +2170,8 @@ static HAL_DDR_SelfRefreshModeTypeDef ddr_sr_read_mode(void)
   */
 HAL_StatusTypeDef HAL_DDR_Init(DDR_InitTypeDef *iddr)
 {
+  printf("DDR init started \n\r");
+  
   HAL_StatusTypeDef ret = HAL_OK;
   int iret = -1;
   uint32_t ddr_reten;

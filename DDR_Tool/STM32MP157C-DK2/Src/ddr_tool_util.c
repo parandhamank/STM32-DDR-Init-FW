@@ -102,9 +102,10 @@ void UART_Config(void)
   }
 
   /* Output a message on Hyperterminal using printf function */
-  printf("\n\r=============== UTILITIES-DDR Tool ===============\r");
-  printf("\n\rModel: %s \r", UTIL_MODEL);
-  printf("\n\rRAM: %s \n\r", DDR_MEM_NAME);
+  printf("\n\r");
+  printf("=============== <<Esteemtronics>> ===============\n\r");
+  printf("Model: %s \n\r", UTIL_MODEL);
+  printf("RAM: %s \n\r", DDR_MEM_NAME);
 
 #if 0
 #if defined (__LOG_UART_IO_)
