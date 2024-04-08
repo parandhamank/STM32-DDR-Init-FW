@@ -59,6 +59,9 @@ if [ ${debug} -ne 0 ] ; then
   echo "<D> formatted_ep_addr           =<$formatted_ep_addr>"
 fi
 
+rm -f ${elf_file_basename}_postbuild.bin
+rm -f ${elf_file_basename}.stm32
+
 ${objcopy_path} -O binary ${elf_file_basename}.elf ${elf_file_basename}_postbuild.bin
 
 

@@ -85,11 +85,34 @@ int main(void)
   iddr.zdata = 0;
   iddr.clear_bkp = false;
 
+  /* ------------------------------------------------------------------ */
+  /* my code */
+  uint32_t* ahb4_periph_en_mpu_set_reg = (uint32_t*) (RCC_BASE + 0xA28U);
+  *ahb4_periph_en_mpu_set_reg |= 0x3;
+
+  uint32_t* gpiob_mode_reg = (uint32_t*) (GPIOB_BASE + 0x0U);
+  *gpiob_mode_reg &= 0xffdfffff;
+
+  uint32_t* gpiob_output_data_reg = (uint32_t*) (GPIOB_BASE + 0x14U);
+  *gpiob_output_data_reg |= 0x0400;
+  /* ------------------------------------------------------------------ */
+
   if (HAL_DDR_Init(&iddr) != HAL_OK)
   {
     printf("DDR Initialization KO\n\r");
     return 1;
   }
+
+  /* ------------------------------------------------------------------ */
+  uint32_t* ddr_test_address = (uint32_t*) (DDR_MEM_BASE + 0x8000U);
+  *ddr_test_address = 0xdeadbeaf;
+
+  if (*ddr_test_address == 0xdeadbeaf)
+  {
+      HAL_Delay(2000);
+      *gpiob_output_data_reg &= 0x0000;
+  }
+  /* ------------------------------------------------------------------ */
 
   /* Infinite loop */
   while (1)

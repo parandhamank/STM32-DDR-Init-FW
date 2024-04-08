@@ -2282,16 +2282,21 @@ start:
    * De-assert presetn once the clocks are active
    * and stable via DDRCAPBRST bit.
    */
+
+  uint32_t* rcc_ddr_interface_ctrl_reg = (uint32_t*) (0x50000000U + 0x0D8U);
+  *rcc_ddr_interface_ctrl_reg |= (1 << 6);
+  *rcc_ddr_interface_ctrl_reg |= (1 << 7);
+
   CLEAR_BIT(RCC->DDRITFCR, RCC_DDRITFCR_DDRCAPBRST);
 
   /* 1.4. wait 128 cycles to permit initialization of end logic */
   /* For PCLK = 133MHz => 1 us is enough, 2 to allow lower frequency */
   ddr_delay_us(DDR_DELAY_END_LOGIC_INIT_US);
 
-  if (INTERACTIVE(STEP_DDR_RESET))
+  /*if (INTERACTIVE(STEP_DDR_RESET))
   {
     goto start;
-  }
+  }*/
 
   /* 1.5. initialize registers ddr_umctl2 */
   /* Stop uMCTL2 before PHY is ready */
@@ -2338,10 +2343,10 @@ start:
     return ret;
   }
 
-  if (INTERACTIVE(STEP_CTL_INIT))
+  /*if (INTERACTIVE(STEP_CTL_INIT))
   {
     goto start;
-  }
+  }*/
 
   /*  2. deassert reset signal core_ddrc_rstn, aresetn and presetn */
   CLEAR_BIT(RCC->DDRITFCR, RCC_DDRITFCR_DDRCORERST);
@@ -2371,10 +2376,10 @@ start:
     CLEAR_BIT(DDRPHYC->MR1, DDRPHYC_MR1_DE);
   }
 
-  if (INTERACTIVE(STEP_PHY_INIT))
+  /*if (INTERACTIVE(STEP_PHY_INIT))
   {
     goto start;
-  }
+  }*/
 
   /*
    *  4. Monitor PHY init status by polling PUBL register PGSR.IDONE
