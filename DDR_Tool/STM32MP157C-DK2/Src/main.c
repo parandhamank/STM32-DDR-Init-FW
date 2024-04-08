@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32mp_util_conf.h"
+#include "..\..\..\stm32mp1_dev.h"
 
 /** @addtogroup STM32MP1xx_HAL_Examples
   * @{
